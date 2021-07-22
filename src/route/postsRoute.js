@@ -12,9 +12,13 @@ route.get('/posts', async (req, res) => {
 })
 
 route.post('/posts', async (req, res) => {
-  const post = req.body
-  await addPostService(post)
-  res.json({ message: "Post successfully added" })
+  try {
+    const post = req.body
+    await addPostService(post)
+    res.json({ message: "Post successfully added" })
+  } catch (error) {
+    res.json(error)
+  }
 })
 
 module.exports = route

@@ -13,6 +13,8 @@ describe('Posts route', () => {
     await api.post('/posts', post1)
 
     const { data } = await api.get('/posts')
+
+    data.forEach(async post => await api.delete(`/posts/${post.id}`))
     
     const isPostAdded = data.some(post => post.title === post1.title)
 

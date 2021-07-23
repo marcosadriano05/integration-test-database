@@ -1,5 +1,4 @@
 const { Post } = require('../../../src/domain')
-const { getPostsService } = require('../../../src/application/service')
 
 const axios = require('axios')
 

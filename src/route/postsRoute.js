@@ -30,10 +30,21 @@ route.get('/posts/:id', async (req, res) => {
 route.post('/posts', async (req, res) => {
   try {
     const post = req.body
-    await addPostService(post)
-    res.json({ message: "Post successfully added" })
+
+    if (req.body.title === undefined || req.body.title === null) {
+      return res.status(404).json({ message: 'Title param has incorrect format' })
+    }
+
+    const postCreated = await addPostService(post)
+    const postDTO = {
+      id: postCreated.lastID,
+      title: post.title,
+      comments: post.comments
+    }
+
+    return res.status(201).json(postDTO)
   } catch (error) {
-    res.json(error)
+    return res.json(error)
   }
 })
 
